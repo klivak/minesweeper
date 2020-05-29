@@ -3,6 +3,8 @@
     *ngFor="let square of squares; let i = index"
     [id]="square.index"
     [className]="square.value"
+    [attr.data]="square.data"
+    (click)="onSquareClick(square)"
     class="bomb"
   >
     {{ square.value }}

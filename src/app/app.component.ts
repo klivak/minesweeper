@@ -41,7 +41,9 @@ export class AppComponent implements OnInit {
     for (let i = 0; i < totalGridSize; i++) {
       const item = {
         index: i,
-        value: shuffledArray[i]
+        value: shuffledArray[i],
+        data: null,
+        checked: false
       };
       this.squares.push(item);
     }
@@ -56,9 +58,42 @@ export class AppComponent implements OnInit {
         if (i > 0 && !isLeftEdge && this.squares[i - 1].value === 'bomb') {
           total++;
         }
+        if (i > 9 && !isRightEdge && this.squares[i + 1 - this.width].value === 'bomb') {
+          total++;
+        }
+        if (i > 10 && this.squares[i - this.width].value === 'bomb') {
+          total++;
+        }
+        if (i > 11 && !isLeftEdge && this.squares[i - 1 - this.width].value === 'bomb') {
+          total++;
+        }
+        if (i < 98 && !isRightEdge && this.squares[i + 1].value === 'bomb') {
+          total++;
+        }
+        if (i < 90 && !isLeftEdge && this.squares[i - 1 + this.width].value === 'bomb') {
+          total++;
+        }
+        if (i < 88 && !isRightEdge && this.squares[i + 1 + this.width].value === 'bomb') {
+          total++;
+        }
+        if (i < 89 && this.squares[i + this.width].value === 'bomb') {
+          total++;
+        }
+        this.squares[i].data = total;
       }
     }
 
 
+  }
+
+  onSquareClick(square) {
+    if (square.value === 'bomb') {
+      console.log('Game over');
+    } else {
+      const total = square.data;
+      if (total !== 0) {
+        square.checked = true; // TODO !!! add checked class
+      }
+    }
   }
 }
