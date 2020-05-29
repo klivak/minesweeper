@@ -1,8 +1,10 @@
 <div class="grid">
   <div
     *ngFor="let square of squares; let i = index"
-    [id]="i"
+    [id]="square.index"
+    [className]="square.value"
+    class="bomb"
   >
-    {{ square }}
+    {{ square.value }}
   </div>
 </div>

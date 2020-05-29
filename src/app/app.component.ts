@@ -35,8 +35,30 @@ export class AppComponent implements OnInit {
     const bombsArray = Array(this.bombAmount).fill('bomb');
     const emptyArray = Array(totalGridSize - this.bombAmount).fill('valid');
 
+    const gameArray = emptyArray.concat(bombsArray);
+    const shuffledArray = gameArray.sort(() => Math.random() - 0.5);
+
     for (let i = 0; i < totalGridSize; i++) {
-      this.squares.push(i);
+      const item = {
+        index: i,
+        value: shuffledArray[i]
+      };
+      this.squares.push(item);
     }
+
+    // add numbers
+    for (let i = 0; i < this.squares.length; i++) {
+      let total = 0;
+      const isLeftEdge = i % this.width === 0;
+      const isRightEdge = (i % this.width === this.width - 1);
+
+      if (this.squares[i].value === 'valid') {
+        if (i > 0 && !isLeftEdge && this.squares[i - 1].value === 'bomb') {
+          total++;
+        }
+      }
+    }
+
+
   }
 }
