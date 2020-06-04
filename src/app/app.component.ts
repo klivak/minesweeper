@@ -83,7 +83,6 @@ export class AppComponent implements OnInit {
       }
     }
 
-
   }
 
   onSquareClick(square) {
@@ -92,8 +91,11 @@ export class AppComponent implements OnInit {
     } else {
       const total = square.data;
       if (total !== 0) {
-        square.checked = true; // TODO !!! add checked class
+        square.checked = true;
+        square.value = total;
+        return;
       }
+      square.checked = true;
     }
   }
 }

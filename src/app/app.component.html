@@ -5,10 +5,9 @@
     [className]="square.value"
     [attr.data]="square.data"
     (click)="onSquareClick(square)"
+    [ngClass]="{'checked' : square.checked, 'bomb' : square.value === 'bomb', 'valid': square.value === 'valid'}"
     class="bomb"
   >
-
-    // TODO add checked class
     {{ square.value }}
   </div>
 </div>
