@@ -84,6 +84,7 @@ export class AppComponent implements OnInit {
   }
 
   onSquareClick(square) {
+    const currentId = square.index;
     if (this.isGameOver) {
       return;
     }
@@ -99,12 +100,21 @@ export class AppComponent implements OnInit {
         square.value = total;
         return;
       }
-      this.checkSquare(square, square.index);
-      square.checked = true;
+      this.checkSquare(square, currentId);
     }
+    square.checked = true;
   }
 
   checkSquare(square: object, currentId: number) {
+    const isLeftEdge = (currentId % this.width === 0);
+    const isRightEdge = (currentId % this.width === this.width - 1);
 
+    setTimeout(() => {
+      if (currentId > 0 && !isLeftEdge) {
+        // tslint:disable-next-line:radix
+        const newId = this.squares[currentId - 1].index;
+        // const newSquare =
+      }
+    }, 10);
   }
 }
