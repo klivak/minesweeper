@@ -10,6 +10,7 @@ export class AppComponent implements OnInit {
   public width = 10;
   public bombAmount = 20;
   public squares = [];
+  public isGameOver = false;
 
   @ViewChild('someVar') el: ElementRef;
 
@@ -19,13 +20,9 @@ export class AppComponent implements OnInit {
 
 
   ngOnInit() {
-
     const grid = this.el;
-
     console.log('grid', grid);
-
     this.createBoard();
-
   }
 
   createBoard() {
@@ -43,7 +40,8 @@ export class AppComponent implements OnInit {
         index: i,
         value: shuffledArray[i],
         data: null,
-        checked: false
+        checked: false,
+        flag: false
       };
       this.squares.push(item);
     }
@@ -86,6 +84,12 @@ export class AppComponent implements OnInit {
   }
 
   onSquareClick(square) {
+    if (this.isGameOver) {
+      return;
+    }
+    if (square.checked || square.flag) {
+      return;
+    }
     if (square.value === 'bomb') {
       console.log('Game over');
     } else {
@@ -95,7 +99,12 @@ export class AppComponent implements OnInit {
         square.value = total;
         return;
       }
+      this.checkSquare(square, square.index);
       square.checked = true;
     }
+  }
+
+  checkSquare(square: object, currentId: number) {
+
   }
 }
